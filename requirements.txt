@@ -1,3 +1,43 @@
-pandas
-scikit-learn
-pytest
+# Every library the 30-day plan uses, installed once on Day 1 so you
+# never stop mid-day to install something. Python 3.11 or 3.12.
+#   pip install -r requirements.txt
+# Later project repos keep their own short requirements.txt for deploys;
+# everything in them is already installed from this file.
+
+# Week 1: data and classic ML (Days 1 to 7)
+numpy>=1.26
+pandas>=2.1
+scipy>=1.11
+scikit-learn>=1.4,<1.8   # 1.8+ deprecates penalty=, which Day 5 uses
+matplotlib>=3.8
+xgboost>=2.0
+tabulate>=0.9            # DataFrame.to_markdown on Day 2
+joblib>=1.3
+
+# Week 2: deep learning and LLM internals (Days 8 to 14)
+torch>=2.2
+torchvision>=0.17
+tiktoken>=0.7
+requests>=2.31
+gradio>=4.0
+
+# Week 3: LLM apps, RAG, serving (Days 15 to 21)
+openai>=1.40
+python-dotenv>=1.0
+pydantic>=2.7
+tenacity>=8.2
+httpx>=0.27
+sentence-transformers>=3.0
+psycopg[binary]>=3.2
+psycopg-pool>=3.2
+fastapi>=0.111
+uvicorn>=0.30
+langfuse>=3.0
+
+# Week 4: MCP and agents (Days 22 to 30)
+mcp>=1.16,<2             # 2.x renamed FastMCP, which Day 22 uses
+langgraph>=1.0
+langgraph-checkpoint-sqlite>=2.0
+
+# Tests, every day
+pytest>=8.0
