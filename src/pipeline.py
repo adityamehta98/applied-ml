@@ -1,30 +1,13 @@
-from sklearn.compose import ColumnTransformer
+"""The full model: preprocessing and a classifier in one leak-free Pipeline."""
+from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import cross_val_score
-from src.dataset import load_split
+
+from src.features import build_preprocessor
 
 
-def build_pipeline(numeric, categorical):
-    pre = ColumnTransformer([
-        ("num", Pipeline([("impute", SimpleImputer()),
-                          ("scale", StandardScaler())]), numeric),
-        ("cat", OneHotEncoder(handle_unknown="ignore"), categorical),
+def build_model(numeric, categorical):
+    """Preprocess, then classify. Fit it on training data; everything inside is fitted together."""
+    return Pipeline([
+        ("pre", build_preprocessor(numeric, categorical)),
+        ("model", LogisticRegression(max_iter=5000)),
     ])
-    return Pipeline([("pre", pre),
-                     ("model", RandomForestClassifier(random_state=42))])
-
-
-def run():
-    X_tr, X_te, y_tr, y_te = load_split()
-    numeric = X_tr.select_dtypes("number").columns.tolist()
-    categorical = [c for c in X_tr.columns if c not in numeric]
-    pipe = build_pipeline(numeric, categorical)
-    scores = cross_val_score(pipe, X_tr, y_tr, cv=5, scoring="f1")
-    print("CV F1: %.3f +/- %.3f" % (scores.mean(), scores.std()))
-
-
-if __name__ == "__main__":
-    run()
