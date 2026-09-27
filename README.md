@@ -1,1 +1,1 @@
-# applied-ml
+# deep-learning-lab
