@@ -20,3 +20,12 @@ both real models should beat it, with gradient boosting usually on top.
 | dummy (most frequent) | ~0.27 |
 | logistic regression | fill in |
 | gradient boosting | fill in |
+
+# interview-prep
+
+Written, rehearsable answers and drills for AI Engineer interviews. Every answer is in my
+own words and tied to something I built, so it comes out fluently under pressure.
+
+- `notes/ml-answers.md`: the core machine-learning questions (week 1).
+
+Structure I use for every answer: claim, why, example (from a project), trade-off.
