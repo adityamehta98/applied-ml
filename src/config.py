@@ -1,16 +1,15 @@
-from dataclasses import dataclass, asdict
-from typing import Any
+"""Every setting of a training run in one place."""
+from dataclasses import asdict, dataclass
 
 
-@dataclass
+@dataclass(frozen=True)
 class TrainConfig:
-    """Hyper‑parameters for a training run."""
-    lr: float = 1e-3          # learning rate
-    hidden: int = 16          # size of hidden layer
-    epochs: int = 10          # number of training epochs
-    batch_size: int = 32      # mini‑batch size
-    seed: int = 42            # random seed for reproducibility
+    lr: float = 1e-3          # the number to tune first
+    batch_size: int = 64      # memory and speed trade-off
+    epochs: int = 5           # watch validation loss, do not guess
+    hidden: int = 64          # model size for the MLP
+    weight_decay: float = 0.0
+    seed: int = 0             # same seed, same run
 
-    def to_dict(self) -> dict[str, Any]:
-        """Return a plain dictionary representation of the config."""
+    def to_dict(self):
         return asdict(self)
